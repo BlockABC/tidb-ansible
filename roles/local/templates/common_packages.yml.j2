@@ -4,13 +4,9 @@ tidb_packages:
   - name: tidb
     version: {{ tidb_version }}
     url: http://download.pingcap.org/tidb-{{ tidb_version }}-linux-amd64.tar.gz
-
-tidb_binlog_kafka:
-{% if not deploy_without_tidb|default(false) %}
-  - name: tidb-binlog-kafka
+  - name: tidb-tools
     version: {{ tidb_version }}
-    url: http://download.pingcap.org/tidb-binlog-kafka-{{ tidb_version }}-linux-amd64.tar.gz
-{% endif %}
+    url: http://download.pingcap.org/tidb-tools-{{ tidb_version }}-linux-amd64.tar.gz
 
 common_packages:
   - name: fio

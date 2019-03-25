@@ -48,10 +48,7 @@
         - enable_binlog|default(false)
         - process_supervision == 'systemd'
 
-    - name: wait until the drainer port is up
+    - name: wait for drainer up
       wait_for:
-        host: "{{ ansible_host }}"
-        port: "{{ drainer_port }}"
-        state: started
-        msg: "the drainer port {{ drainer_port }} is not up"
+        host={{ ansible_host }} port={{ drainer_port }} state=present
       when: enable_binlog|default(false)

@@ -44,20 +44,10 @@
       systemd: name=node_exporter-{{ node_exporter_port }}.service state=started enabled=no
       when: process_supervision == 'systemd'
 
-    - name: wait until the node_exporter port is up
-      wait_for:
-        host: "{{ ansible_host }}"
-        port: "{{ node_exporter_port }}"
-        state: started
-        msg: "the node_exporter port {{ node_exporter_port }} is not up"
-
-    - name: wait until the node_exporter metrics page is available
-      uri:
-        url: "http://{{ ansible_host }}:{{ node_exporter_port }}/metrics"
-      register: node_exporter_http_result
-      until: node_exporter_http_result.status == 200
-      retries: 12
-      delay: 5
+    - name: wait for node_exporter up
+      wait_for: |
+        host={{ ansible_host }} port={{ node_exporter_port }} state=present
+        send='GET /metrics HTTP/1.0\r\n\r\n' search_regex='200 OK'
 
 
 - hosts: monitored_servers
@@ -73,20 +63,10 @@
       systemd: name=blackbox_exporter-{{ blackbox_exporter_port }}.service state=started enabled=no
       when: process_supervision == 'systemd'
 
-    - name: wait until the blackbox_exporter port is up
-      wait_for:
-        host: "{{ ansible_host }}"
-        port: "{{ blackbox_exporter_port }}"
-        state: started
-        msg: "the blackbox_exporter port {{ blackbox_exporter_port }} is not up"
-
-    - name: wait until the blackbox_exporter metrics page is available
-      uri:
-        url: "http://{{ ansible_host }}:{{ blackbox_exporter_port }}/metrics"
-      register: blackbox_exporter_http_result
-      until: blackbox_exporter_http_result.status == 200
-      retries: 12
-      delay: 5
+    - name: wait for blackbox_exporter up
+      wait_for: |
+        host={{ ansible_host }} port={{ blackbox_exporter_port }} state=present
+        send='GET / HTTP/1.0\r\n\r\n' search_regex='200 OK'
 
 
 - hosts: alertmanager_servers
@@ -102,78 +82,40 @@
       become: true
       when: process_supervision == 'systemd'
 
-    - name: wait until the alertmanager port is up
-      wait_for:
-        host: "{{ ansible_host }}"
-        port: "{{ alertmanager_port }}"
-        state: started
-        msg: "the alertmanager port {{ alertmanager_port }} is not up"
+    - name: wait for alertmanager up
+      wait_for: |
+        host={{ ansible_host }} port={{ alertmanager_port }} state=present
 
 
 - hosts: monitoring_servers
   tags:
     - pushgateway
+    - prometheus
   tasks:
-    - name: start pushgateway by supervise
+    - name: start monitoring modules by supervise
       shell: cd {{ deploy_dir }}/scripts && ./start_{{ item }}.sh
       when: process_supervision == 'supervise'
       with_items:
         - pushgateway
+        - prometheus
 
-    - name: start pushgateway by systemd
+    - name: start monitoring modules by systemd
       systemd: name={{ item }} state=started enabled=no
       when: process_supervision == 'systemd'
       become: true
       with_items:
         - pushgateway-{{ pushgateway_port }}.service
-
-    - name: wait until the pushgateway port is up
-      wait_for:
-        host: "{{ ansible_host }}"
-        port: "{{ pushgateway_port }}"
-        state: started
-        msg: "the pushgateway port {{ pushgateway_port }} is not up"
-
-    - name: wait until the pushgateway metrics page is available
-      uri:
-        url: "http://{{ ansible_host }}:{{ pushgateway_port }}/metrics"
-      register: pushgateway_http_result
-      until: pushgateway_http_result.status == 200
-      retries: 12
-      delay: 5
-
-
-- hosts: monitoring_servers
-  tags:
-    - prometheus
-  tasks:
-    - name: start prometheus by supervise
-      shell: cd {{ deploy_dir }}/scripts && ./start_{{ item }}.sh
-      when: process_supervision == 'supervise'
-      with_items:
-        - prometheus
-
-    - name: start prometheus by systemd
-      systemd: name={{ item }} state=started enabled=no
-      when: process_supervision == 'systemd'
-      become: true
-      with_items:
         - prometheus-{{ prometheus_port }}.service
 
-    - name: wait until the prometheus port is up
-      wait_for:
-        host: "{{ ansible_host }}"
-        port: "{{ prometheus_port }}"
-        state: started
-        msg: "the prometheus port {{ prometheus_port }} is not up"
+    - name: wait for pushgateway up
+      wait_for: |
+        host={{ ansible_host }} port={{ pushgateway_port }} state=present
+        send='GET /metrics HTTP/1.0\r\n\r\n' search_regex='200 OK'
 
-    - name: wait until the prometheus metrics page is available
-      uri:
-        url: "http://{{ ansible_host }}:{{ prometheus_port }}/metrics"
-      register: prometheus_http_result
-      until: prometheus_http_result.status == 200
-      retries: 12
-      delay: 5
+    - name: wait for prometheus up
+      wait_for: |
+        host={{ ansible_host }} port={{ prometheus_port }} state=present
+        send='GET /metrics HTTP/1.0\r\n\r\n' search_regex='200 OK'
 
 
 - hosts: kafka_exporter_servers
@@ -193,12 +135,9 @@
         - enable_binlog|default(false)
         - process_supervision == 'systemd'
 
-    - name: wait until the kafka_exporter port is up
-      wait_for:
-        host: "{{ ansible_host }}"
-        port: "{{ kafka_exporter_port }}"
-        state: started
-        msg: "the kafka_exporter port {{ kafka_exporter_port }} is not up"
+    - name: wait for kafka_exporter up
+      wait_for: |
+        host={{ ansible_host }} port={{ kafka_exporter_port }} state=present
       when: enable_binlog|default(false)
 
 
@@ -213,37 +152,25 @@
         - pd
 
     - name: start PD by systemd
-      systemd: name=pd-{{ pd_client_port }}.service state=started enabled=no
+      systemd: name=pd.service state=started enabled=no
       become: true
       when: process_supervision == 'systemd'
 
-    - name: wait until the PD port is up
-      wait_for:
-        host: "{{ ansible_host }}"
-        port: "{{ pd_client_port }}"
-        state: started
-        msg: "the PD port {{ pd_client_port }} is not up"
-
-    - name: wait until the PD health page is available
-      uri:
-        url: "http://{{ ansible_host }}:{{ pd_client_port }}/health"
-        return_content: yes
-      register: pd_http_result
-      until: pd_http_result.status == 200 and 'true' in pd_http_result.content
-      retries: 12
-      delay: 5
+    - name: wait for PD up
+      wait_for: |
+        host={{ ansible_host }} port={{ pd_client_port }} state=present
+        send='GET /pd/api/v1/members HTTP/1.0\r\n\r\n' search_regex='200 OK'
       when: not enable_tls|default(false)
 
-    - name: wait until the PD health page is available when enable_tls
+    - name: wait for PD up
       uri:
-        url: "https://{{ ansible_host }}:{{ pd_client_port }}/health"
+        url: "https://{{ ansible_host }}:{{ pd_client_port }}/pd/api/v1/members"
         validate_certs: no
         client_cert: "{{ pd_cert_dir }}/pd-server-{{ ansible_host }}.pem"
         client_key: "{{ pd_cert_dir }}/pd-server-{{ ansible_host }}-key.pem"
-        return_content: yes
-      register: pd_https_result
-      until: pd_https_result.status == 200 and 'true' in pd_https_result.content
-      retries: 12
+      register: result
+      until: result.status is defined and result.status == 200
+      retries: 10
       delay: 5
       when: enable_tls|default(false)
 
@@ -263,41 +190,15 @@
       become: true
       when: process_supervision == 'systemd'
 
-    - name: wait until the TiKV port is up
-      wait_for:
-        host: "{{ ansible_host }}"
-        port: "{{ tikv_port }}"
-        state: started
-        msg: "the TiKV port {{ tikv_port }} is not up"
-
-    - name: wait until the TiKV status page is available
-      uri:
-        url: "http://{{ ansible_host }}:{{ tikv_status_port }}/status"
-        return_content: yes
-      register: tikv_http_result
-      until: tikv_http_result.status == 200
-      retries: 12
-      delay: 5
-      when: not enable_tls|default(false) and (tikv_metric_method is defined and tikv_metric_method != "push")
-
-    - name: wait until the TiKV status page is available when enable_tls
-      uri:
-        url: "https://{{ ansible_host }}:{{ tikv_status_port }}/status"
-        validate_certs: no
-        client_cert: "{{ tikv_cert_dir }}/tikv-server-{{ ansible_host }}.pem"
-        client_key: "{{ tikv_cert_dir }}/tikv-server-{{ ansible_host }}-key.pem"
-        return_content: yes
-      register: tikv_https_result
-      until: tikv_https_result.status == 200
-      retries: 10
-      delay: 5
-      when: enable_tls|default(false) and (tikv_metric_method is defined and tikv_metric_method != "push")
-
-    - name: wait until TiKV process is up
+    - name: wait for TiKV up
       wait_for_pid: |
         pid_file={{ deploy_dir }}/status/tikv.pid timeout=300
         thread_name_regex='tikv-server' state=present
-      when: deployment_method == 'binary' and (tikv_metric_method is defined and tikv_metric_method == "push")
+      when: deployment_method == 'binary'
+
+    - name: wait for TiKV up
+      wait_for: host={{ ansible_host }} port={{ tikv_port }} state=present
+      when: deployment_method == 'docker'
 
     - command: cat {{ deploy_dir }}/status/tikv.pid
       register: new_tikv_pid
@@ -328,12 +229,9 @@
         - enable_binlog|default(false)
         - process_supervision == 'systemd'
 
-    - name: wait until the pump port is up
-      wait_for:
-        host: "{{ ansible_host }}"
-        port: "{{ pump_port }}"
-        state: started
-        msg: "the pump port {{ pump_port }} is not up"
+    - name: wait for pump up
+      wait_for: |
+        host={{ ansible_host }} port={{ pump_port }} state=present
       when: enable_binlog|default(false)
 
 
@@ -352,32 +250,20 @@
       become: true
       when: process_supervision == 'systemd'
 
-    - name: wait until the TiDB port is up
-      wait_for:
-        host: "{{ ansible_host }}"
-        port: "{{ tidb_port }}"
-        state: started
-        msg: "the TiDB port {{ tidb_port }} is not up"
-
-    - name: wait until the TiDB status page is available
-      uri:
-        url: "http://{{ ansible_host }}:{{ tidb_status_port }}/status"
-        return_content: yes
-      register: tidb_http_result
-      until: tidb_http_result.status == 200 and 'TiDB' in tidb_http_result.content
-      retries: 12
-      delay: 5
+    - name: wait for TiDB up
+      wait_for: |
+        host={{ ansible_host }} port={{ tidb_status_port }} state=present
+        send='GET /status HTTP/1.0\r\n\r\n' search_regex='TiDB'
       when: not enable_tls|default(false)
 
-    - name: wait until the TiDB status page is available when enable_tls
+    - name: wait for TiDB up
       uri:
         url: "https://{{ ansible_host }}:{{ tidb_status_port }}/status"
         validate_certs: no
         client_cert: "{{ tidb_cert_dir }}/tidb-server-{{ ansible_host }}.pem"
         client_key: "{{ tidb_cert_dir }}/tidb-server-{{ ansible_host }}-key.pem"
-        return_content: yes
-      register: tidb_https_result
-      until: tidb_https_result.status == 200 and 'TiDB' in tidb_https_result.content
+      register: result
+      until: result.status is defined and result.status == 200
       retries: 10
       delay: 5
       when: enable_tls|default(false)
@@ -400,20 +286,10 @@
       when: process_supervision == 'systemd'
       become: true
 
-    - name: wait until the grafana port is up
-      wait_for:
-        host: "{{ ansible_host }}"
-        port: "{{ grafana_port }}"
-        state: started
-        msg: "the grafana port {{ grafana_port }} is not up"
-
-    - name: wait until the grafana login page is available
-      uri:
-        url: "http://{{ ansible_host }}:{{ grafana_port }}/login"
-      register: grafana_http_result
-      until: grafana_http_result.status == 200
-      retries: 12
-      delay: 5
+    - name: wait for grafana up
+      wait_for: |
+        host={{ ansible_host }} port={{ grafana_port }} state=present
+        send='GET /login HTTP/1.0\r\n\r\n' search_regex='200 OK'
 
     - name: start grafana_collector by supervise
       shell: cd {{ deploy_dir }}/scripts && ./start_{{ item }}.sh
@@ -426,12 +302,9 @@
       when: process_supervision == 'systemd'
       become: true
 
-    - name: wait until the grafana_collector port is up
-      wait_for:
-        host: "{{ ansible_host }}"
-        port: "{{ grafana_collector_port }}"
-        state: started
-        msg: "the grafana_collector port {{ grafana_collector_port }} is not up"
+    - name: wait for grafana_collector up
+      wait_for: |
+        host={{ ansible_host }} port={{ grafana_collector_port }} state=present
 
     - set_fact:
         grafana_host: "{{ ansible_host }}"
@@ -443,7 +316,7 @@
         chdir={{ grafana_data_dir }}
         warn=no
         curl -q -X POST -d @data_source.json --header 'Content-Type: application/json'
-        "http://{{ grafana_admin_user }}:{{ grafana_admin_password | urlencode | regex_replace('/','%2F') }}@127.0.0.1:{{ grafana_port }}/api/datasources"
+        "http://{{ grafana_admin_user }}:{{ grafana_admin_password }}@127.0.0.1:{{ grafana_port }}/api/datasources"
 
     - name: import grafana dashboards - prepare config
       delegate_to: localhost
@@ -459,7 +332,6 @@
             password: "{{ grafana_admin_password }}"
             apikey: "{{ lookup('file', grafana_api_keys_dir + '/grafana_apikey.key') }}"
             datasource: "{{ cluster_name }}"
-            method: "{{ tikv_metric_method }}"
             titles:
               node: "{{ cluster_name | title }}-Node_exporter"
               pd:   "{{ cluster_name | title }}-PD"
@@ -474,9 +346,9 @@
 
     - name: import grafana dashboards - run import script
       delegate_to: localhost
-      shell: "python grafana-config-copy.py"
-      args:
-        chdir: "{{ playbook_dir }}/scripts"
+      shell: >-
+        chdir={{ playbook_dir }}/scripts
+        ./grafana-config-copy.py
       vars:
         - ansible_become: false
         - ansible_connection: local

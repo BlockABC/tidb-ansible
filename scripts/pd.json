@@ -148,7 +148,7 @@
             }
           ],
           "thresholds": "",
-          "title": "PD role",
+          "title": "PD Role",
           "type": "singlestat",
           "valueFontSize": "50%",
           "valueMaps": [
@@ -226,7 +226,7 @@
             }
           ],
           "thresholds": "",
-          "title": "Storage capacity",
+          "title": "Storage Capacity",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -305,7 +305,7 @@
             }
           ],
           "thresholds": "",
-          "title": "Current storage size",
+          "title": "Current Storage Size",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -462,7 +462,7 @@
             }
           ],
           "thresholds": "0.01,0.5",
-          "title": "Leader balance ratio",
+          "title": "Leader Balance Ratio",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -542,7 +542,7 @@
             }
           ],
           "thresholds": "0.05,0.5",
-          "title": "Region balance ratio",
+          "title": "Region Balance Ratio",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -617,7 +617,7 @@
             }
           ],
           "thresholds": "0,1",
-          "title": "Normal stores",
+          "title": "Normal Stores",
           "type": "singlestat",
           "valueFontSize": "100%",
           "valueMaps": [
@@ -726,7 +726,7 @@
             }
           ],
           "timeFrom": "1s",
-          "title": "Abnormal stores",
+          "title": "Abnormal  Stores",
           "transform": "timeseries_aggregations",
           "transparent": false,
           "type": "table"
@@ -793,7 +793,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Current storage usage",
+          "title": "Current Storage Usage",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -873,7 +873,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Current peer count",
+          "title": "Current Peer Count",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -951,7 +951,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Metadata information",
+          "title": "Metadata Information",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1028,7 +1028,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Region label isolation level",
+          "title": "Region Label Isolation Level",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1155,163 +1155,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Region health",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "${DS_TEST-CLUSTER}",
-          "fill": 1,
-          "id": 102,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 6,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "pd_cluster_placement_status",
-              "format": "time_series",
-              "intervalFactor": 2,
-              "legendFormat": "{{name}}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Label distribution",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "${DS_TEST-CLUSTER}",
-          "fill": 1,
-          "id": 98,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 6,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "pd_config_status",
-              "format": "time_series",
-              "intervalFactor": 2,
-              "legendFormat": "{{type}}-{{namespace}}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "PD scheduler config",
+          "title": "Region Health",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1399,7 +1243,7 @@
               "hide": false,
               "instant": false,
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "store-{{store}}",
               "refId": "B"
             }
           ],
@@ -1478,7 +1322,7 @@
               "expr": "{instance=\"$instance\", namespace=~\"$namespace\", type=\"store_available\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "store-{{store}}",
               "refId": "A"
             }
           ],
@@ -1557,7 +1401,7 @@
               "expr": "pd_scheduler_store_status{instance=\"$instance\", namespace=~\"$namespace\", type=\"store_used\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "store-{{store}}",
               "refId": "A"
             }
           ],
@@ -1633,10 +1477,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(pd_scheduler_store_status{instance=\"$instance\", namespace=~\"$namespace\", type=\"region_size\"}) by (address) / sum(pd_scheduler_store_status{instance=\"$instance\", namespace=~\"$namespace\", type=\"store_used\"}) by (address) * 2^20",
+              "expr": "sum(pd_scheduler_store_status{instance=\"$instance\", namespace=~\"$namespace\", type=\"region_size\"}) by (store) / sum(pd_scheduler_store_status{instance=\"$instance\", namespace=~\"$namespace\", type=\"store_used\"}) by (store) * 2^20",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "store-{{store}}",
               "refId": "A"
             }
           ],
@@ -1713,10 +1557,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(pd_scheduler_store_status{instance=\"$instance\", namespace=~\"$namespace\", type=\"store_available\"}) by (address) / sum(pd_scheduler_store_status{instance=\"$instance\", namespace=~\"$namespace\", type=\"store_capacity\"}) by (address)",
+              "expr": "sum(pd_scheduler_store_status{instance=\"$instance\", namespace=~\"$namespace\", type=\"store_available\"}) by (store) / sum(pd_scheduler_store_status{instance=\"$instance\", namespace=~\"$namespace\", type=\"store_capacity\"}) by (store)",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "store-{{store}}",
               "refId": "A"
             }
           ],
@@ -1801,7 +1645,7 @@
               "expr": "pd_scheduler_store_status{instance=\"$instance\", namespace=~\"$namespace\", type=\"leader_score\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "tikv-{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -1897,7 +1741,7 @@
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "tikv-{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -1913,7 +1757,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Store Region score",
+          "title": "Store region score",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -1987,7 +1831,7 @@
             {
               "expr": "pd_scheduler_store_status{instance=\"$instance\", namespace=~\"$namespace\", type=\"leader_size\"}",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "tikv-{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -2068,7 +1912,7 @@
             {
               "expr": "pd_scheduler_store_status{instance=\"$instance\", namespace=~\"$namespace\", type=\"region_size\"}",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "tikv-{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -2076,7 +1920,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Store Region size",
+          "title": "Store region size",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -2149,7 +1993,7 @@
             {
               "expr": "pd_scheduler_store_status{instance=\"$instance\", namespace=~\"$namespace\", type=\"leader_count\"}",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "tikv-{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -2230,7 +2074,7 @@
             {
               "expr": "pd_scheduler_store_status{instance=\"$instance\", namespace=~\"$namespace\", type=\"region_count\"}",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "tikv-{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -2238,7 +2082,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Store Region count",
+          "title": "Store region count",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -2325,7 +2169,7 @@
               "expr": "pd_hotspot_status{instance=\"$instance\",type=\"hot_write_region_as_leader\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -2333,7 +2177,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Hot write Region's leader distribution",
+          "title": "Hot write region's leader distribution",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -2408,7 +2252,7 @@
               "expr": "pd_hotspot_status{instance=\"$instance\",type=\"hot_write_region_as_peer\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -2416,7 +2260,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Hot write Region's peer distribution",
+          "title": "Hot write region's peer distribution",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -2491,7 +2335,7 @@
               "expr": "pd_hotspot_status{instance=\"$instance\",type=\"total_written_bytes_as_leader\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "{{store}}",
               "metric": "pd_hotspot_status",
               "refId": "A",
               "step": 4
@@ -2500,7 +2344,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Hot write Region's leader written bytes",
+          "title": "Hot write region's leader written bytes",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -2575,7 +2419,7 @@
               "expr": "pd_hotspot_status{instance=\"$instance\",type=\"total_written_bytes_as_peer\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -2583,7 +2427,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Hot Region's peer written bytes",
+          "title": "Hot region's peer written bytes",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -2658,7 +2502,7 @@
               "expr": "pd_hotspot_status{instance=\"$instance\",type=\"hot_read_region_as_leader\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -2666,7 +2510,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Hot read Region's leader distribution",
+          "title": "Hot read region's leader distribution",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -2741,7 +2585,7 @@
               "expr": "pd_hotspot_status{instance=\"$instance\",type=\"hot_read_region_as_peer\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -2749,7 +2593,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Hot read Region's peer distribution",
+          "title": "Hot read region's peer distribution",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -2823,7 +2667,7 @@
               "expr": "pd_hotspot_status{instance=\"$instance\",type=\"total_read_bytes_as_leader\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "{{store}}",
               "metric": "pd_hotspot_status",
               "refId": "A",
               "step": 4
@@ -2832,7 +2676,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Hot read Region's leader read bytes",
+          "title": "Hot read region's leader read bytes",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -2906,7 +2750,7 @@
               "expr": "pd_hotspot_status{instance=\"$instance\",type=\"total_read_bytes_as_peer\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -2914,7 +2758,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Hot read Region's peer read bytes",
+          "title": "Hot read region's peer read bytes",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -3078,10 +2922,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(delta(pd_scheduler_balance_leader{instance=\"$instance\", type=\"move_leader\"}[30s])) by (address)",
+              "expr": "sum(delta(pd_scheduler_balance_leader{instance=\"$instance\", type=\"move_leader\"}[30s])) by (store)",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "{{store}}",
               "refId": "A"
             }
           ],
@@ -3160,17 +3004,17 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(delta(pd_scheduler_balance_region{instance=\"$instance\", type=\"move_peer\"}[1m])) by (address)",
+              "expr": "sum(delta(pd_scheduler_balance_region{instance=\"$instance\", type=\"move_peer\"}[1m])) by (store)",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "{{store}}",
               "refId": "A"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Balance Region movement",
+          "title": "Balance region movement",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -3239,10 +3083,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(delta(pd_scheduler_balance_leader{instance=\"$instance\", type!=\"move_leader\"}[30s])) by (type, address)",
+              "expr": "sum(delta(pd_scheduler_balance_leader{instance=\"$instance\", type!=\"move_leader\"}[30s])) by (type, store)",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{type}}_{{address}}",
+              "legendFormat": "{{type}}_{{store}}",
               "refId": "A"
             }
           ],
@@ -3319,17 +3163,17 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(delta(pd_scheduler_balance_region{instance=\"$instance\", type!=\"move_peer\"}[30s])) by (type, address)",
+              "expr": "sum(delta(pd_scheduler_balance_region{instance=\"$instance\", type!=\"move_peer\"}[30s])) by (type, store)",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{type}}_{{address}}",
+              "legendFormat": "{{type}}_{{store}}",
               "refId": "A"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Balance Region event",
+          "title": "Balance region event",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -3495,7 +3339,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Balance Region scheduler",
+          "title": "Balance region scheduler",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -4311,7 +4155,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "99% Operator finish duration",
+          "title": "99% operator finish duration",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -4391,7 +4235,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "50% Operator finish duration",
+          "title": "50% operator finish duration",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -4471,7 +4315,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "99% Operator step finish duration",
+          "title": "99% operator step finish duration",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -4550,7 +4394,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "50% Operator step finish duration",
+          "title": "50% operator step finish duration",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -4646,7 +4490,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Completed commands rate",
+          "title": "completed commands rate",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -4731,7 +4575,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "99% Completed commands duration",
+          "title": "99% completed_cmds_duration_seconds",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -4770,7 +4614,7 @@
       "repeatIteration": null,
       "repeatRowId": null,
       "showTitle": true,
-      "title": "gRPC",
+      "title": "Grpc",
       "titleSize": "h4"
     },
     {
@@ -4825,7 +4669,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Handle transactions count",
+          "title": "handle_txns_count",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -4907,7 +4751,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "99% Handle transactions duration",
+          "title": "99% handle_txns_duration_seconds",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -4992,7 +4836,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "99% WAL fsync duration",
+          "title": "99% wal_fsync_duration_seconds",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -5076,7 +4920,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "99% Peer round trip time seconds",
+          "title": "99% peer_round_trip_time_seconds",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -5284,7 +5128,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Raft term",
+          "title": "Raft Term",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -5363,7 +5207,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Raft committed index",
+          "title": "Raft Committed Index",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -5442,7 +5286,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Raft applied index",
+          "title": "Raft Applied Index",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -5480,7 +5324,7 @@
       "repeatIteration": null,
       "repeatRowId": null,
       "showTitle": true,
-      "title": "etcd",
+      "title": "Etcd",
       "titleSize": "h4"
     },
     {
@@ -5532,7 +5376,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Handle requests count",
+          "title": "handle_requests_count",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -5622,7 +5466,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Handle requests duration",
+          "title": "handle_requests_duration_seconds",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -5706,11 +5550,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(delta(pd_scheduler_region_heartbeat{instance=\"$instance\", type=\"report\", status=\"ok\"}[1m])) by (address)",
+              "expr": "sum(delta(pd_scheduler_region_heartbeat{instance=\"$instance\", type=\"report\", status=\"ok\"}[1m])) by (store)",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "store{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -5791,11 +5635,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(delta(pd_scheduler_region_heartbeat{instance=\"$instance\", type=\"report\", status=\"err\"}[1m])) by (address)",
+              "expr": "sum(delta(pd_scheduler_region_heartbeat{instance=\"$instance\", type=\"report\", status=\"err\"}[1m])) by (store)",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "store{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -5876,11 +5720,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(delta(pd_scheduler_region_heartbeat{instance=\"$instance\", type=\"report\", status=\"bind\"}[1m])) by (address)",
+              "expr": "sum(delta(pd_scheduler_region_heartbeat{instance=\"$instance\", type=\"report\", status=\"bind\"}[1m])) by (store)",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "store{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -5961,11 +5805,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(pd_scheduler_region_heartbeat{type=\"push\",instance=\"$instance\"}[5m])*60) by (address, status)",
+              "expr": "sum(rate(pd_scheduler_region_heartbeat{type=\"push\",instance=\"$instance\"}[5m])*60) by (store, status)",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{address}}-{{status}}",
+              "legendFormat": "store{{store}}-{{status}}",
               "refId": "A",
               "step": 4
             }
@@ -6046,11 +5890,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "round(histogram_quantile(0.99, sum(rate(pd_scheduler_region_heartbeat_latency_seconds_bucket[5m])) by (address, le)), 1000)",
+              "expr": "round(histogram_quantile(0.99, sum(rate(pd_scheduler_region_heartbeat_latency_seconds_bucket[5m])) by (store, le)), 1000)",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{address}}",
+              "legendFormat": "store{{store}}",
               "refId": "A",
               "step": 4
             }
@@ -6058,7 +5902,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "99% Region heartbeat latency",
+          "title": "99% region heartbeat latency",
           "tooltip": {
             "msResolution": false,
             "shared": true,
